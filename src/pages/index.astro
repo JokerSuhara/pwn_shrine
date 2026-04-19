@@ -1,0 +1,8 @@
+---
+import CheckinGrid from "@components/checkin/CheckinGrid.svelte";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout title="打卡" description="用月视图热力图记录 Pwn 学习深度。">
+	<CheckinGrid client:only="svelte" />
+</AppLayout>

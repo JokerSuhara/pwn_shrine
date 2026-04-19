@@ -1,8 +1,13 @@
 ---
 title: Draft Example
 published: 2022-07-01
+description: Work in progress draft entry for the Pwn.Shrine template.
 tags: [Markdown, Blogging, Demo]
 category: Examples
+type: other
+difficulty: 1
+status: pending
+libc: ""
 draft: true
 ---
 

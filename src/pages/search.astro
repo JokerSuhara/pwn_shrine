@@ -1,0 +1,8 @@
+---
+import SearchPanel from "@components/Search.svelte";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout title="搜索" description="搜索 Pwn 笔记与题解。">
+	<SearchPanel client:only="svelte" standalone={true} />
+</AppLayout>

@@ -1,9 +1,22 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
 
-::github{repo="saicaca/fuwari"}
+Pwn.Shrine is a static learning space for binary exploitation notes.
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+It is built on top of [Fuwari](https://github.com/saicaca/fuwari) and keeps the parts that already work well for long-form notes:
+
+- Markdown rendering
+- dark mode
+- search with Pagefind
+- static deployment to common Astro platforms
+
+The MVP adds two things on top of the original template:
+
+- structured Pwn metadata for each note
+- a lightweight monthly check-in grid stored in browser localStorage
+
+Recommended workflow:
+
+1. Add a note under `src/content/posts/`
+2. Fill in `type`, `difficulty`, `status`, and optional `libc`
+3. Review notes from `/records/`
+4. Use `/` to keep daily study momentum visible

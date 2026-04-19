@@ -1,0 +1,23 @@
+---
+import RecordsExplorer from "@components/records/RecordsExplorer.svelte";
+import AppLayout from "@layouts/AppLayout.astro";
+import { formatDateToYYYYMMDD } from "@utils/date-utils";
+import { getSortedPosts } from "@utils/content-utils";
+
+const records = (await getSortedPosts()).map((entry) => ({
+	slug: entry.slug,
+	title: entry.data.title,
+	description: entry.data.description || "",
+	published: formatDateToYYYYMMDD(entry.data.published),
+	type: entry.data.type,
+	difficulty: entry.data.difficulty,
+	status: entry.data.status,
+	libc: entry.data.libc || "",
+	tags: entry.data.tags,
+	category: entry.data.category,
+}));
+---
+
+<AppLayout title="笔记" description="集中管理 Pwn 题解与漏洞类型元数据。">
+	<RecordsExplorer client:only="svelte" records={records} />
+</AppLayout>

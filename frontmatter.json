@@ -52,6 +52,42 @@
           "type": "string"
         },
         {
+          "title": "type",
+          "name": "type",
+          "type": "choice",
+          "options": [
+            "stack",
+            "heap",
+            "fmt",
+            "uaf",
+            "race",
+            "sandbox",
+            "integer",
+            "other"
+          ]
+        },
+        {
+          "title": "difficulty",
+          "name": "difficulty",
+          "type": "number"
+        },
+        {
+          "title": "status",
+          "name": "status",
+          "type": "choice",
+          "options": [
+            "pending",
+            "local",
+            "remote",
+            "archived"
+          ]
+        },
+        {
+          "title": "libc",
+          "name": "libc",
+          "type": "string"
+        },
+        {
           "title": "draft",
           "name": "draft",
           "type": "boolean"

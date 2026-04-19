@@ -1,0 +1,43 @@
+---
+import { formatDifficulty, pwnStatusClasses, pwnStatusLabels, pwnTypeLabels } from "@/lib/pwn";
+import { formatDateToYYYYMMDD } from "@/utils/date-utils";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	entry: CollectionEntry<"posts">;
+}
+
+const { entry } = Astro.props;
+---
+
+<div class="card-base p-5 md:p-6">
+	<div class="text-sm uppercase tracking-[0.08em] text-50">Record Meta</div>
+	<div class="mt-4 flex flex-col gap-3">
+		<div class="rounded-lg bg-black/[0.02] dark:bg-white/[0.03] p-4">
+			<div class="text-xs uppercase tracking-[0.08em] text-30">Type</div>
+			<div class="mt-2 text-lg font-semibold text-90">{pwnTypeLabels[entry.data.type]}</div>
+		</div>
+		<div class="rounded-lg bg-black/[0.02] dark:bg-white/[0.03] p-4">
+			<div class="text-xs uppercase tracking-[0.08em] text-30">Difficulty</div>
+			<div class="mt-2 text-lg font-semibold text-90">{formatDifficulty(entry.data.difficulty)}</div>
+		</div>
+		<div class="rounded-lg bg-black/[0.02] dark:bg-white/[0.03] p-4">
+			<div class="text-xs uppercase tracking-[0.08em] text-30">Status</div>
+			<div class="mt-2">
+				<span class:list={["inline-flex rounded-md border px-3 py-1 text-sm font-medium", pwnStatusClasses[entry.data.status]]}>
+					{pwnStatusLabels[entry.data.status]}
+				</span>
+			</div>
+		</div>
+		<div class="rounded-lg bg-black/[0.02] dark:bg-white/[0.03] p-4">
+			<div class="text-xs uppercase tracking-[0.08em] text-30">Published</div>
+			<div class="mt-2 text-lg font-semibold text-90">{formatDateToYYYYMMDD(entry.data.published)}</div>
+		</div>
+		{entry.data.libc && (
+			<div class="rounded-lg bg-black/[0.02] dark:bg-white/[0.03] p-4">
+				<div class="text-xs uppercase tracking-[0.08em] text-30">libc</div>
+				<div class="mt-2 text-lg font-semibold text-90">{entry.data.libc}</div>
+			</div>
+		)}
+	</div>
+</div>

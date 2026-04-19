@@ -2,9 +2,11 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const zh_CN: Translation = {
-	[Key.home]: "主页",
+	[Key.home]: "首页",
 	[Key.about]: "关于",
 	[Key.archive]: "归档",
+	[Key.records]: "笔记",
+	[Key.checkin]: "打卡",
 	[Key.search]: "搜索",
 
 	[Key.tags]: "标签",
@@ -13,7 +15,7 @@ export const zh_CN: Translation = {
 
 	[Key.comments]: "评论",
 
-	[Key.untitled]: "无标题",
+	[Key.untitled]: "未命名",
 	[Key.uncategorized]: "未分类",
 	[Key.noTags]: "无标签",
 
@@ -26,8 +28,8 @@ export const zh_CN: Translation = {
 
 	[Key.themeColor]: "主题色",
 
-	[Key.lightMode]: "亮色",
-	[Key.darkMode]: "暗色",
+	[Key.lightMode]: "浅色",
+	[Key.darkMode]: "深色",
 	[Key.systemMode]: "跟随系统",
 
 	[Key.more]: "更多",

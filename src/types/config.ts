@@ -91,6 +91,18 @@ export type BlogPostData = {
 	draft?: boolean;
 	image?: string;
 	category?: string;
+	type:
+		| "stack"
+		| "heap"
+		| "fmt"
+		| "uaf"
+		| "race"
+		| "sandbox"
+		| "integer"
+		| "other";
+	difficulty: 1 | 2 | 3 | 4 | 5;
+	status: "pending" | "local" | "remote" | "archived";
+	libc?: string;
 	prevTitle?: string;
 	prevSlug?: string;
 	nextTitle?: string;

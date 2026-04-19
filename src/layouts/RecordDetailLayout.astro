@@ -1,0 +1,58 @@
+---
+import BackToTop from "@components/control/BackToTop.astro";
+import Footer from "@components/Footer.astro";
+import Navbar from "@components/Navbar.astro";
+import TOC from "@components/widget/TOC.astro";
+import Layout from "@layouts/Layout.astro";
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+	lang?: string;
+	setOGTypeArticle?: boolean;
+	headings?: MarkdownHeading[];
+}
+
+const {
+	title,
+	description,
+	lang,
+	setOGTypeArticle,
+	headings = [],
+} = Astro.props;
+---
+
+<Layout
+	title={title}
+	description={description}
+	lang={lang}
+	setOGTypeArticle={setOGTypeArticle}
+>
+	<div class="min-h-screen">
+		<div class="max-w-[var(--page-width)] px-0 md:px-4 mx-auto">
+			<div class="sticky top-0 z-50">
+				<Navbar />
+			</div>
+			<div class="grid grid-cols-1 xl:grid-cols-[18rem_minmax(0,1fr)] 2xl:grid-cols-[18rem_minmax(0,1fr)_var(--toc-width)] gap-4 pt-4 md:pt-6">
+				<aside class="xl:sticky xl:top-24 self-start">
+					<slot name="aside" />
+				</aside>
+				<main>
+					<slot />
+					<div class="pb-6 md:pb-8">
+						<Footer />
+					</div>
+				</main>
+				<div id="toc-wrapper" class:list={["hidden 2xl:block", { "toc-hide": headings.length === 0 }]}>
+					<div class="sticky top-20 h-[calc(100vh_-_7rem)] overflow-y-auto hide-scrollbar">
+						<div id="toc" class="pb-8">
+							<TOC headings={headings} />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<BackToTop />
+	</div>
+</Layout>

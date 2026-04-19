@@ -2,9 +2,11 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
-import { url } from "@utils/url-utils.ts";
+import { getRecordUrlBySlug, url } from "@utils/url-utils.ts";
 import { onMount } from "svelte";
 import type { SearchResult } from "@/global";
+
+export let standalone = false;
 
 let keywordDesktop = "";
 let keywordMobile = "";
@@ -13,31 +15,34 @@ let isSearching = false;
 let pagefindLoaded = false;
 let initialized = false;
 
+$: panelId = standalone ? "search-page-panel" : "search-panel";
+$: barId = standalone ? "search-page-bar" : "search-bar";
+
 const fakeResult: SearchResult[] = [
 	{
-		url: url("/"),
+		url: getRecordUrlBySlug("demo-chall-pwn100"),
 		meta: {
-			title: "This Is a Fake Search Result",
+			title: "babyheap: from unsorted bin to __free_hook",
 		},
 		excerpt:
-			"Because the search cannot work in the <mark>dev</mark> environment.",
+			"Search uses mock data in <mark>dev</mark>. Build the site to test Pagefind.",
 	},
 	{
-		url: url("/"),
+		url: url("/records/"),
 		meta: {
-			title: "If You Want to Test the Search",
+			title: "Browse the records page",
 		},
-		excerpt: "Try running <mark>npm build && npm preview</mark> instead.",
+		excerpt: "Filter notes by type and inspect metadata from the records list.",
 	},
 ];
 
 const togglePanel = () => {
-	const panel = document.getElementById("search-panel");
+	const panel = document.getElementById(panelId);
 	panel?.classList.toggle("float-panel-closed");
 };
 
 const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
-	const panel = document.getElementById("search-panel");
+	const panel = document.getElementById(panelId);
 	if (!panel || !isDesktop) return;
 
 	if (show) {
@@ -139,40 +144,67 @@ $: if (initialized && keywordMobile) {
 </script>
 
 <!-- search bar for desktop view -->
-<div id="search-bar" class="hidden lg:flex transition-all items-center h-11 mr-2 rounded-lg
+<div id={barId} class:hidden={standalone} class="hidden lg:flex transition-all items-center h-11 mr-2 rounded-lg
       bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06]
       dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
 ">
     <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-    <input placeholder="{i18n(I18nKey.search)}" bind:value={keywordDesktop} on:focus={() => search(keywordDesktop, true)}
+    <input placeholder={i18n(I18nKey.search)} bind:value={keywordDesktop} on:focus={() => search(keywordDesktop, true)}
            class="transition-all pl-10 text-sm bg-transparent outline-0
          h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
     >
 </div>
 
 <!-- toggle btn for phone/tablet view -->
-<button on:click={togglePanel} aria-label="Search Panel" id="search-switch"
+<button on:click={togglePanel} aria-label="Search Panel" id="search-switch" class:hidden={standalone}
         class="btn-plain scale-animation lg:!hidden rounded-lg w-11 h-11 active:scale-90">
     <Icon icon="material-symbols:search" class="text-[1.25rem]"></Icon>
 </button>
 
 <!-- search panel -->
-<div id="search-panel" class="float-panel float-panel-closed search-panel absolute md:w-[30rem]
-top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
+<div
+	id={panelId}
+	class:float-panel-closed={!standalone}
+	class={`search-panel ${
+		standalone
+			? "card-base relative w-full p-5 md:p-6"
+			: "float-panel absolute md:w-[30rem] top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2"
+	}`}
+>
+	{#if standalone}
+		<div class="mb-5">
+			<div class="text-sm uppercase tracking-[0.08em] text-50">Search</div>
+			<h1 class="text-90 text-3xl md:text-4xl font-bold mt-2">Search Notes</h1>
+		</div>
+	{/if}
 
     <!-- search bar inside panel for phone/tablet -->
-    <div id="search-bar-inside" class="flex relative lg:hidden transition-all items-center h-11 rounded-xl
-      bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06]
-      dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
-  ">
+    <div
+		id={standalone ? "search-page-bar-inside" : "search-bar-inside"}
+		class={`flex relative transition-all items-center h-11 rounded-xl bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06] dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10 ${
+			standalone ? "" : "lg:hidden"
+		}`}
+	>
         <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-        <input placeholder="Search" bind:value={keywordMobile}
-               class="pl-10 absolute inset-0 text-sm bg-transparent outline-0
-               focus:w-60 text-black/50 dark:text-white/50"
-        >
+		{#if standalone}
+			<input
+				placeholder={i18n(I18nKey.search)}
+				bind:value={keywordDesktop}
+				class="pl-10 absolute inset-0 text-sm bg-transparent outline-0 focus:w-60 text-black/50 dark:text-white/50"
+			>
+		{:else}
+			<input
+				placeholder={i18n(I18nKey.search)}
+				bind:value={keywordMobile}
+				class="pl-10 absolute inset-0 text-sm bg-transparent outline-0 focus:w-60 text-black/50 dark:text-white/50"
+			>
+		{/if}
     </div>
 
     <!-- search results -->
+	{#if standalone && keywordDesktop && !isSearching && result.length === 0}
+		<div class="mt-4 text-50">No matching notes.</div>
+	{/if}
     {#each result as item}
         <a href={item.url}
            class="transition first-of-type:mt-2 lg:first-of-type:mt-0 group block

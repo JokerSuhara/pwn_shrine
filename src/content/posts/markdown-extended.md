@@ -6,6 +6,10 @@ description: 'Read more about Markdown features in Fuwari'
 image: ''
 tags: [Demo, Example, Markdown, Fuwari]
 category: 'Examples'
+type: other
+difficulty: 2
+status: archived
+libc: ""
 draft: false 
 ---
 

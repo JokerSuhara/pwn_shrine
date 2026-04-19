@@ -5,6 +5,10 @@ description: "How to use this blog template."
 image: "./cover.jpeg"
 tags: ["Fuwari", "Blogging", "Customization"]
 category: Guides
+type: integer
+difficulty: 3
+status: local
+libc: "2.35"
 draft: false
 ---
 

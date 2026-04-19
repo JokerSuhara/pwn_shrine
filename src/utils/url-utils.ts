@@ -13,12 +13,16 @@ function joinUrl(...parts: string[]): string {
 }
 
 export function getPostUrlBySlug(slug: string): string {
-	return url(`/posts/${slug}/`);
+	return getRecordUrlBySlug(slug);
+}
+
+export function getRecordUrlBySlug(slug: string): string {
+	return url(`/records/${slug}/`);
 }
 
 export function getTagUrl(tag: string): string {
-	if (!tag) return url("/archive/");
-	return url(`/archive/?tag=${encodeURIComponent(tag.trim())}`);
+	if (!tag) return url("/records/");
+	return url(`/records/?tag=${encodeURIComponent(tag.trim())}`);
 }
 
 export function getCategoryUrl(category: string | null): string {
@@ -27,8 +31,8 @@ export function getCategoryUrl(category: string | null): string {
 		category.trim() === "" ||
 		category.trim().toLowerCase() === i18n(I18nKey.uncategorized).toLowerCase()
 	)
-		return url("/archive/?uncategorized=true");
-	return url(`/archive/?category=${encodeURIComponent(category.trim())}`);
+		return url("/records/?uncategorized=true");
+	return url(`/records/?category=${encodeURIComponent(category.trim())}`);
 }
 
 export function getDir(path: string): string {

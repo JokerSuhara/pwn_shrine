@@ -1,5 +1,18 @@
 import { defineCollection, z } from "astro:content";
 
+const pwnTypeSchema = z.enum([
+	"stack",
+	"heap",
+	"fmt",
+	"uaf",
+	"race",
+	"sandbox",
+	"integer",
+	"other",
+]);
+
+const pwnStatusSchema = z.enum(["pending", "local", "remote", "archived"]);
+
 const postsCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -11,6 +24,10 @@ const postsCollection = defineCollection({
 		tags: z.array(z.string()).optional().default([]),
 		category: z.string().optional().nullable().default(""),
 		lang: z.string().optional().default(""),
+		type: pwnTypeSchema,
+		difficulty: z.number().int().min(1).max(5),
+		status: pwnStatusSchema,
+		libc: z.string().optional().default(""),
 
 		/* For internal use */
 		prevTitle: z.string().default(""),
