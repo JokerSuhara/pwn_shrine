@@ -1,0 +1,64 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+	aria-label="Switch to dark mode"
+	class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90"
+	data-theme-toggle
+	title="Switch to dark mode"
+	type="button"
+>
+	<div class="absolute dark:opacity-0">
+		<Icon name="material-symbols:wb-sunny-outline-rounded" class="text-[1.25rem]" />
+	</div>
+	<div class="absolute opacity-0 dark:opacity-100">
+		<Icon name="material-symbols:dark-mode-outline-rounded" class="text-[1.25rem]" />
+	</div>
+</button>
+
+<script>
+	import { DARK_MODE, LIGHT_MODE } from "@constants/constants";
+	import { getStoredTheme, setTheme } from "@utils/setting-utils";
+
+	function syncThemeToggles() {
+		const mode = getStoredTheme();
+		const nextLabel =
+			mode === DARK_MODE ? "Switch to light mode" : "Switch to dark mode";
+
+		document.querySelectorAll("[data-theme-toggle]").forEach((node) => {
+			if (!(node instanceof HTMLButtonElement)) return;
+			node.setAttribute("aria-label", nextLabel);
+			node.setAttribute("title", nextLabel);
+		});
+	}
+
+	function toggleTheme() {
+		const nextMode = getStoredTheme() === DARK_MODE ? LIGHT_MODE : DARK_MODE;
+		setTheme(nextMode);
+		syncThemeToggles();
+	}
+
+	if (!(window).__pwnShrineThemeToggleBound) {
+		(window).__pwnShrineThemeToggleBound = true;
+
+		document.addEventListener("click", (event) => {
+			const target = event.target;
+			if (!(target instanceof Element)) return;
+			const toggle = target.closest("[data-theme-toggle]");
+			if (!(toggle instanceof HTMLButtonElement)) return;
+			toggleTheme();
+		});
+
+		const observer = new MutationObserver(() => {
+			syncThemeToggles();
+		});
+
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true,
+		});
+	}
+
+	syncThemeToggles();
+</script>
