@@ -1,19 +1,19 @@
 <script lang="ts">
+import { onMount } from "svelte";
 import {
+	type CheckinLevel,
 	checkinLevelClasses,
 	checkinLevelLabels,
-	type CheckinLevel,
 } from "@/lib/pwn";
 import {
+	type CheckinRecord,
 	formatMonthKey,
 	getMonthCells,
 	getMonthSummary,
 	nextLevel,
 	readCheckins,
 	writeCheckins,
-	type CheckinRecord,
 } from "./checkin-store";
-import { onMount } from "svelte";
 
 const weekLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 

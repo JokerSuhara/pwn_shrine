@@ -1,8 +1,8 @@
 ---
 import RecordsExplorer from "@components/records/RecordsExplorer.svelte";
 import AppLayout from "@layouts/AppLayout.astro";
-import { formatDateToYYYYMMDD } from "@utils/date-utils";
 import { getSortedPosts } from "@utils/content-utils";
+import { formatDateToYYYYMMDD } from "@utils/date-utils";
 
 const records = (await getSortedPosts()).map((entry) => ({
 	slug: entry.slug,

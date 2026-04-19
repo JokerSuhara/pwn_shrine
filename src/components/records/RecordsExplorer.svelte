@@ -1,14 +1,14 @@
 <script lang="ts">
+import { getRecordUrlBySlug } from "@utils/url-utils";
+import { onMount } from "svelte";
 import {
 	formatDifficulty,
+	type PwnStatus,
+	type PwnType,
 	pwnStatusClasses,
 	pwnStatusLabels,
 	pwnTypeLabels,
-	type PwnStatus,
-	type PwnType,
 } from "@/lib/pwn";
-import { getRecordUrlBySlug } from "@utils/url-utils";
-import { onMount } from "svelte";
 
 type RecordItem = {
 	slug: string;

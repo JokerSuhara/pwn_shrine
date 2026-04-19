@@ -1,7 +1,12 @@
 ---
-import { formatDifficulty, pwnStatusClasses, pwnStatusLabels, pwnTypeLabels } from "@/lib/pwn";
-import { formatDateToYYYYMMDD } from "@/utils/date-utils";
 import type { CollectionEntry } from "astro:content";
+import {
+	formatDifficulty,
+	pwnStatusClasses,
+	pwnStatusLabels,
+	pwnTypeLabels,
+} from "@/lib/pwn";
+import { formatDateToYYYYMMDD } from "@/utils/date-utils";
 
 interface Props {
 	entry: CollectionEntry<"posts">;

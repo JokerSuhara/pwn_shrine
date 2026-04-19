@@ -34,8 +34,8 @@ export function parseCheckins(raw: string | null): CheckinRecord {
 	try {
 		const parsed = JSON.parse(raw) as Record<string, number>;
 		return Object.fromEntries(
-			Object.entries(parsed).filter(([, value]) =>
-				Number.isInteger(value) && value >= 0 && value <= 4,
+			Object.entries(parsed).filter(
+				([, value]) => Number.isInteger(value) && value >= 0 && value <= 4,
 			),
 		) as CheckinRecord;
 	} catch {

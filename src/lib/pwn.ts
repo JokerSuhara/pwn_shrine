@@ -9,12 +9,7 @@ export const PWN_TYPES = [
 	"other",
 ] as const;
 
-export const PWN_STATUSES = [
-	"pending",
-	"local",
-	"remote",
-	"archived",
-] as const;
+export const PWN_STATUSES = ["pending", "local", "remote", "archived"] as const;
 
 export type PwnType = (typeof PWN_TYPES)[number];
 export type PwnStatus = (typeof PWN_STATUSES)[number];
