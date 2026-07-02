@@ -1,0 +1,82 @@
+---
+import { Icon } from "astro-icon/components";
+
+const glibcVersions = ["2.23", "2.27", "2.31", "2.35", "2.39"];
+const sourceRows = Array.from({ length: 12 });
+---
+
+<section class="card-base overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] transition-[box-shadow,background-color] duration-150 ease-out dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+	<div class="border-b border-black/10 px-5 py-4 dark:border-white/10 md:px-6">
+		<div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+			<div class="min-w-0">
+				<div class="text-xs font-semibold uppercase tracking-[0.12em] text-30">Glibc 查询</div>
+				<h2 class="mt-1 text-balance text-2xl font-bold text-90">源码浏览器</h2>
+			</div>
+			<div class="flex h-9 w-fit items-center gap-2 rounded-md bg-black/[0.035] px-3 text-sm font-medium text-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] dark:bg-white/[0.05] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]">
+				<Icon name="material-symbols:code-rounded" class="text-[1.1rem]" />
+				<span class="tabular-nums">2.27</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid gap-0 lg:grid-cols-[17rem_minmax(0,1fr)]">
+		<aside class="border-b border-black/10 bg-black/[0.015] p-4 dark:border-white/10 dark:bg-white/[0.02] lg:border-b-0 lg:border-r">
+			<div class="mb-3 flex items-center gap-2 px-2 text-xs font-semibold uppercase tracking-[0.12em] text-30">
+				<Icon name="material-symbols:storage-rounded" class="text-[1.15rem]" />
+				Glibc Versions
+			</div>
+			<div class="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible">
+				{glibcVersions.map((version, index) => (
+					<button
+						type="button"
+						class:list={[
+							"min-h-10 shrink-0 rounded-lg px-3 text-left text-sm font-semibold tabular-nums transition-[background-color,box-shadow,scale] duration-150 ease-out active:scale-[0.96]",
+							index === 1
+								? "bg-[var(--primary)]/10 text-[var(--primary)] shadow-[0_0_0_1px_var(--primary)]"
+								: "bg-black/[0.025] text-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] hover:bg-black/[0.04] dark:bg-white/[0.03] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.07)] dark:hover:bg-white/[0.05]",
+						]}
+						aria-pressed={index === 1 ? "true" : "false"}
+					>
+						glibc {version}
+					</button>
+				))}
+			</div>
+		</aside>
+
+		<div class="min-w-0 p-4 md:p-5">
+			<div class="grid min-h-[24rem] overflow-hidden rounded-lg shadow-[0_0_0_1px_rgba(0,0,0,0.06)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)] md:grid-cols-[14rem_minmax(0,1fr)]">
+				<div class="border-b border-black/10 bg-black/[0.015] p-4 dark:border-white/10 dark:bg-white/[0.02] md:border-b-0 md:border-r">
+					<div class="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-30">Source Tree</div>
+					<div class="flex flex-col gap-2" aria-hidden="true">
+						{sourceRows.slice(0, 7).map((_, index) => (
+							<div class="flex h-8 items-center gap-2 rounded-md bg-black/[0.025] px-2 dark:bg-white/[0.03]">
+								<div class="h-2.5 w-2.5 rounded-full bg-black/10 dark:bg-white/10"></div>
+								<div class:list={[
+									"h-2.5 rounded-full bg-black/10 dark:bg-white/10",
+									index % 3 === 0 ? "w-24" : index % 3 === 1 ? "w-32" : "w-20",
+								]}></div>
+							</div>
+						))}
+					</div>
+				</div>
+				<div class="min-w-0 bg-[var(--codeblock-bg)] p-4">
+					<div class="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/50">
+						<Icon name="material-symbols:terminal-rounded" class="text-[1.1rem]" />
+						Source Preview
+					</div>
+					<div class="flex flex-col gap-2" aria-hidden="true">
+						{sourceRows.map((_, index) => (
+							<div class="grid grid-cols-[2rem_minmax(0,1fr)] items-center gap-3">
+								<div class="text-right text-xs tabular-nums text-white/25">{index + 1}</div>
+								<div class:list={[
+									"h-2.5 rounded-full bg-white/10",
+									index % 4 === 0 ? "w-11/12" : index % 4 === 1 ? "w-3/4" : index % 4 === 2 ? "w-5/6" : "w-1/2",
+								]}></div>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

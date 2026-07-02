@@ -1,0 +1,58 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="card-base overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] transition-[box-shadow,background-color] duration-150 ease-out dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+	<div class="border-b border-black/10 px-5 py-4 dark:border-white/10 md:px-6">
+		<div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+			<div class="min-w-0">
+				<div class="text-xs font-semibold uppercase tracking-[0.12em] text-30">CTF-Wiki</div>
+				<h2 class="mt-1 text-balance text-2xl font-bold text-90">Pwn 知识库入口</h2>
+			</div>
+			<a
+				href="https://ctf-wiki.org/pwn/"
+				target="_blank"
+				rel="noreferrer"
+				class="group flex min-h-10 w-fit items-center gap-2 rounded-lg bg-[var(--primary)]/10 pl-4 pr-3.5 text-sm font-semibold text-[var(--primary)] shadow-[0_0_0_1px_var(--primary)] transition-[background-color,box-shadow,scale] duration-150 ease-out active:scale-[0.96]"
+			>
+				<span>打开 CTF-Wiki</span>
+				<Icon name="material-symbols:open-in-new-rounded" class="text-[1.15rem] transition-[transform] duration-150 ease-out group-hover:translate-x-0.5" />
+			</a>
+		</div>
+	</div>
+
+	<div class="grid gap-4 p-4 md:p-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
+		<a
+			href="https://ctf-wiki.org/pwn/"
+			target="_blank"
+			rel="noreferrer"
+			class="group rounded-lg bg-black/[0.025] p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] transition-[background-color,box-shadow,scale] duration-150 ease-out hover:bg-black/[0.035] active:scale-[0.96] dark:bg-white/[0.03] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)] dark:hover:bg-white/[0.045]"
+		>
+			<div class="flex items-start justify-between gap-3">
+				<div class="flex min-w-0 items-center gap-3">
+					<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--primary)]/10 text-[var(--primary)]">
+						<Icon name="material-symbols:menu-book-outline-rounded" class="text-[1.4rem]" />
+					</div>
+					<div class="min-w-0">
+						<div class="text-xs font-semibold uppercase tracking-[0.12em] text-30">External Link</div>
+						<h3 class="mt-0.5 text-balance text-xl font-bold text-90">CTF-Wiki Pwn</h3>
+					</div>
+				</div>
+				<Icon name="material-symbols:open-in-new-rounded" class="mt-1 text-[1.25rem] text-30 transition-[color,transform] duration-150 ease-out group-hover:translate-x-0.5 group-hover:text-[var(--primary)]" />
+			</div>
+			<p class="mt-4 text-pretty text-sm leading-6 text-50">
+				Pwn 方向资料入口，后续可接入本地镜像或章节同步。
+			</p>
+		</a>
+
+		<div class="rounded-lg bg-black/[0.025] p-4 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:bg-white/[0.03] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+			<div class="text-xs font-semibold uppercase tracking-[0.12em] text-30">Mirror Draft</div>
+			<h3 class="mt-1 text-balance text-xl font-bold text-90">Pwn 章节抓取</h3>
+			<div class="mt-4 space-y-2" aria-hidden="true">
+				<div class="h-9 rounded-md bg-black/[0.035] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] dark:bg-white/[0.045] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"></div>
+				<div class="h-9 rounded-md bg-black/[0.03] dark:bg-white/[0.04]"></div>
+				<div class="h-9 rounded-md bg-black/[0.025] dark:bg-white/[0.035]"></div>
+			</div>
+		</div>
+	</div>
+</section>

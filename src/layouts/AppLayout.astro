@@ -8,9 +8,10 @@ interface Props {
 	title?: string;
 	description?: string;
 	lang?: string;
+	showFooter?: boolean;
 }
 
-const { title, description, lang } = Astro.props;
+const { title, description, lang, showFooter = true } = Astro.props;
 ---
 
 <Layout title={title} description={description} lang={lang}>
@@ -21,10 +22,12 @@ const { title, description, lang } = Astro.props;
 			</div>
 			<main class="pt-4 md:pt-6">
 				<slot />
+				{showFooter && (
+					<div class="pb-6 md:pb-8">
+						<Footer />
+					</div>
+				)}
 			</main>
-			<div class="pb-6 md:pb-8">
-				<Footer />
-			</div>
 		</div>
 		<BackToTop />
 		<div id="toc"></div>
