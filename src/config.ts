@@ -8,7 +8,7 @@ import type {
 
 export const siteConfig: SiteConfig = {
 	title: "Pwn.Shrine",
-	subtitle: "Pwn learning space",
+	subtitle: "Pwn 学习空间",
 	lang: "zh_CN",
 	themeColor: {
 		hue: 145,
@@ -49,6 +49,14 @@ export const navBarConfig: NavBarConfig = {
 			url: "/records/",
 		},
 		{
+			name: "工具",
+			url: "/tools/",
+		},
+		{
+			name: "资源",
+			url: "/resources/",
+		},
+		{
 			name: "关于",
 			url: "/about/",
 		},
@@ -60,9 +68,9 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "assets/images/demo-avatar.png",
 	name: "Pwn.Shrine",
-	bio: "记录题解、梳理漏洞类型、保持学习节奏。",
+	bio: "记录题解，梳理漏洞类型，保持学习节奏。",
 	links: [
 		{
 			name: "GitHub",
@@ -84,7 +92,5 @@ export const licenseConfig: LicenseConfig = {
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
-	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
 };

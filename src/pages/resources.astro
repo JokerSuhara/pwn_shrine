@@ -1,0 +1,38 @@
+---
+import CtfWikiModule from "@components/resources/CtfWikiModule.astro";
+import FeaturedReposModule from "@components/resources/FeaturedReposModule.astro";
+import GlibcQueryModule from "@components/resources/GlibcQueryModule.astro";
+import AppLayout from "@layouts/AppLayout.astro";
+---
+
+<AppLayout title="资源" description="Pwn 学习资源整理。">
+	<div class="mx-auto flex max-w-6xl flex-col gap-4">
+		<section class="card-base overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] transition-[box-shadow,background-color] duration-150 ease-out dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+			<div class="border-b border-black/10 px-5 py-5 dark:border-white/10 md:px-6">
+				<div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+					<div class="min-w-0">
+						<div class="text-xs font-semibold uppercase tracking-[0.12em] text-30">Resources</div>
+						<h1 class="mt-1 text-balance text-3xl font-bold text-90 md:text-4xl">Pwn 资料库</h1>
+						<p class="mt-2 max-w-2xl text-pretty text-sm leading-6 text-50">
+							面向源码索引、外部知识库和后续本地镜像的资料入口。
+						</p>
+					</div>
+					<div class="grid grid-cols-2 gap-2">
+						<div class="rounded-lg bg-black/[0.025] px-4 py-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] dark:bg-white/[0.03] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.07)]">
+							<div class="text-xs uppercase tracking-[0.08em] text-30">模块</div>
+							<div class="mt-1 text-xl font-bold tabular-nums text-90">3</div>
+						</div>
+						<div class="rounded-lg bg-black/[0.025] px-4 py-3 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] dark:bg-white/[0.03] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.07)]">
+							<div class="text-xs uppercase tracking-[0.08em] text-30">状态</div>
+							<div class="mt-1 text-xl font-bold text-90">Draft</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<FeaturedReposModule />
+		<GlibcQueryModule />
+		<CtfWikiModule />
+	</div>
+</AppLayout>

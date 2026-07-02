@@ -1,0 +1,92 @@
+---
+import { Icon } from "astro-icon/components";
+
+const repositories = [
+	{
+		owner: "shellphish",
+		name: "how2heap",
+		href: "https://github.com/shellphish/how2heap",
+		avatar: "https://github.com/shellphish.png?size=96",
+		description: "Educational heap exploitation techniques across glibc versions.",
+		stars: "8.7K",
+		forks: "1.3K",
+		license: "MIT",
+	},
+	{
+		owner: "zhaoxuya520",
+		name: "reverse-skill",
+		href: "https://github.com/zhaoxuya520/reverse-skill",
+		avatar: "https://github.com/zhaoxuya520.png?size=96",
+		description: "Reverse engineering and security research skill router pack.",
+		stars: "7K",
+		forks: "1.1K",
+		license: "MIT",
+	},
+];
+---
+
+<section class="card-base overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_1px_2px_-1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] transition-[box-shadow,background-color] duration-150 ease-out dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+	<div class="border-b border-black/10 px-5 py-4 dark:border-white/10 md:px-6">
+		<div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+			<div class="min-w-0">
+				<div class="text-xs font-semibold uppercase tracking-[0.12em] text-30">Featured Repositories</div>
+				<h2 class="mt-1 text-balance text-2xl font-bold text-90">精选仓库</h2>
+			</div>
+			<div class="flex h-9 w-fit items-center gap-2 rounded-md bg-black/[0.035] px-3 text-sm font-medium text-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] dark:bg-white/[0.05] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]">
+				<Icon name="fa6-brands:github" class="text-[1.1rem]" />
+				<span class="tabular-nums">{repositories.length}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid gap-3 p-4 md:p-5 lg:grid-cols-2">
+		{repositories.map((repo) => (
+			<a
+				href={repo.href}
+				target="_blank"
+				rel="noreferrer"
+				class="group min-h-[10.5rem] rounded-lg bg-[#140d12] p-5 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_12px_30px_-18px_rgba(0,0,0,0.7)] transition-[background-color,box-shadow,scale] duration-150 ease-out hover:bg-[#190f16] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.14),0_16px_36px_-18px_rgba(0,0,0,0.78)] active:scale-[0.96]"
+			>
+				<div class="flex items-start justify-between gap-4">
+					<div class="flex min-w-0 items-center gap-3">
+						<img
+							src={repo.avatar}
+							alt={`${repo.owner} avatar`}
+							loading="lazy"
+							decoding="async"
+							class="h-10 w-10 shrink-0 rounded-full object-cover outline outline-1 -outline-offset-1 outline-white/10"
+						/>
+						<div class="min-w-0">
+							<h3 class="truncate text-balance text-xl font-bold leading-tight">
+								<span class="text-white/90">{repo.owner}</span>
+								<span class="px-1.5 text-white/45">/</span>
+								<span class="text-white">{repo.name}</span>
+							</h3>
+						</div>
+					</div>
+					<Icon
+						name="fa6-brands:github"
+						class="mt-0.5 shrink-0 text-[1.7rem] text-white/90 transition-[opacity,scale] duration-150 ease-out group-hover:scale-105 group-hover:opacity-100"
+					/>
+				</div>
+
+				<p class="mt-5 text-pretty text-base leading-7 text-white/78">{repo.description}</p>
+
+				<div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-semibold text-white/72">
+					<span class="inline-flex min-h-10 items-center gap-2 tabular-nums">
+						<Icon name="material-symbols:star-outline-rounded" class="text-[1.35rem]" />
+						{repo.stars}
+					</span>
+					<span class="inline-flex min-h-10 items-center gap-2 tabular-nums">
+						<Icon name="material-symbols:fork-right-rounded" class="text-[1.35rem]" />
+						{repo.forks}
+					</span>
+					<span class="inline-flex min-h-10 items-center gap-2">
+						<Icon name="material-symbols:balance-rounded" class="text-[1.35rem]" />
+						{repo.license}
+					</span>
+				</div>
+			</a>
+		))}
+	</div>
+</section>

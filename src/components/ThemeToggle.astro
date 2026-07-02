@@ -3,10 +3,10 @@ import { Icon } from "astro-icon/components";
 ---
 
 <button
-	aria-label="Switch to dark mode"
-	class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90"
+	aria-label="切换到深色模式"
+	class="relative btn-plain scale-animation h-11 w-11 rounded-lg transition-transform duration-150 ease-out active:scale-[0.96]"
 	data-theme-toggle
-	title="Switch to dark mode"
+	title="切换到深色模式"
 	type="button"
 >
 	<div class="absolute dark:opacity-0">
@@ -23,8 +23,7 @@ import { Icon } from "astro-icon/components";
 
 	function syncThemeToggles() {
 		const mode = getStoredTheme();
-		const nextLabel =
-			mode === DARK_MODE ? "Switch to light mode" : "Switch to dark mode";
+		const nextLabel = mode === DARK_MODE ? "切换到浅色模式" : "切换到深色模式";
 
 		document.querySelectorAll("[data-theme-toggle]").forEach((node) => {
 			if (!(node instanceof HTMLButtonElement)) return;

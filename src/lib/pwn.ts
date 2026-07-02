@@ -17,21 +17,21 @@ export type PwnStatus = (typeof PWN_STATUSES)[number];
 export type CheckinLevel = 0 | 1 | 2 | 3 | 4;
 
 export const pwnTypeLabels: Record<PwnType, string> = {
-	stack: "Stack",
-	heap: "Heap",
-	fmt: "Fmt",
+	stack: "栈溢出",
+	heap: "堆利用",
+	fmt: "格式化字符串",
 	uaf: "UAF",
-	race: "Race",
-	sandbox: "Sandbox",
-	integer: "Integer",
-	other: "Other",
+	race: "竞争条件",
+	sandbox: "沙箱逃逸",
+	integer: "整数漏洞",
+	other: "其他",
 };
 
 export const pwnStatusLabels: Record<PwnStatus, string> = {
-	pending: "Pending",
-	local: "Local",
-	remote: "Remote",
-	archived: "Archived",
+	pending: "未开始",
+	local: "本地通过",
+	remote: "远程通过",
+	archived: "已归档",
 };
 
 export const pwnStatusClasses: Record<PwnStatus, string> = {
@@ -46,11 +46,11 @@ export const pwnStatusClasses: Record<PwnStatus, string> = {
 };
 
 export const checkinLevelLabels: Record<CheckinLevel, string> = {
-	0: "No study",
-	1: "Read materials",
-	2: "Local debugging",
-	3: "Solved challenge",
-	4: "Summarized notes",
+	0: "未学习",
+	1: "看资料",
+	2: "本地调试",
+	3: "打通题目",
+	4: "总结沉淀",
 };
 
 export const checkinLevelClasses: Record<CheckinLevel, string> = {

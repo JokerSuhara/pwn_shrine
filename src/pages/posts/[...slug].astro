@@ -1,10 +1,11 @@
 ---
-import { getSortedPosts } from "@utils/content-utils";
+import { getCollection } from "astro:content";
 import { getRecordUrlBySlug } from "@utils/url-utils";
 
 export async function getStaticPaths() {
-	const entries = await getSortedPosts();
-	return entries.map((entry) => ({
+	const posts = await getCollection("posts");
+
+	return posts.map((entry) => ({
 		params: { slug: entry.slug },
 		props: { entry },
 	}));
@@ -12,15 +13,16 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 ---
+
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="refresh" content={`0; url=${getRecordUrlBySlug(entry.slug)}`} />
 		<link rel="canonical" href={getRecordUrlBySlug(entry.slug)} />
-		<title>Redirecting...</title>
+		<title>正在跳转...</title>
 	</head>
 	<body>
-		<p>Redirecting to <a href={getRecordUrlBySlug(entry.slug)}>{getRecordUrlBySlug(entry.slug)}</a>...</p>
+		<p>正在跳转到 <a href={getRecordUrlBySlug(entry.slug)}>{getRecordUrlBySlug(entry.slug)}</a>...</p>
 	</body>
 </html>

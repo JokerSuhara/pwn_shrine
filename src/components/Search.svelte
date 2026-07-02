@@ -22,17 +22,17 @@ const fakeResult: SearchResult[] = [
 	{
 		url: getRecordUrlBySlug("demo-chall-pwn100"),
 		meta: {
-			title: "babyheap: from unsorted bin to __free_hook",
+			title: "babyheap：从 unsorted bin 到 __free_hook",
 		},
 		excerpt:
-			"Search uses mock data in <mark>dev</mark>. Build the site to test Pagefind.",
+			"开发模式下搜索使用模拟数据。构建站点后可测试真实的 Pagefind 搜索。",
 	},
 	{
 		url: url("/records/"),
 		meta: {
-			title: "Browse the records page",
+			title: "浏览笔记页",
 		},
-		excerpt: "Filter notes by type and inspect metadata from the records list.",
+		excerpt: "按漏洞类型筛选笔记，并在列表中查看题目元数据。",
 	},
 ];
 
@@ -77,13 +77,13 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 			searchResults = fakeResult;
 		} else {
 			searchResults = [];
-			console.error("Pagefind is not available in production environment.");
+			console.error("生产环境中未加载 Pagefind。");
 		}
 
 		result = searchResults;
 		setPanelVisibility(result.length > 0, isDesktop);
 	} catch (error) {
-		console.error("Search error:", error);
+		console.error("搜索出错:", error);
 		result = [];
 		setPanelVisibility(false, isDesktop);
 	} finally {
@@ -98,35 +98,31 @@ onMount(() => {
 			typeof window !== "undefined" &&
 			!!window.pagefind &&
 			typeof window.pagefind.search === "function";
-		console.log("Pagefind status on init:", pagefindLoaded);
+		console.log("Pagefind 初始化状态:", pagefindLoaded);
 		if (keywordDesktop) search(keywordDesktop, true);
 		if (keywordMobile) search(keywordMobile, false);
 	};
 
 	if (import.meta.env.DEV) {
-		console.log(
-			"Pagefind is not available in development mode. Using mock data.",
-		);
+		console.log("开发模式下 Pagefind 不可用，使用模拟数据。");
 		initializeSearch();
 	} else {
 		document.addEventListener("pagefindready", () => {
-			console.log("Pagefind ready event received.");
+			console.log("已收到 Pagefind ready 事件。");
 			initializeSearch();
 		});
 		document.addEventListener("pagefindloaderror", () => {
-			console.warn(
-				"Pagefind load error event received. Search functionality will be limited.",
-			);
-			initializeSearch(); // Initialize with pagefindLoaded as false
+			console.warn("已收到 Pagefind 加载失败事件，搜索能力将受限。");
+			initializeSearch();
 		});
 
-		// Fallback in case events are not caught or pagefind is already loaded by the time this script runs
+		// 兜底逻辑：事件未触发或脚本执行时 Pagefind 已加载
 		setTimeout(() => {
 			if (!initialized) {
-				console.log("Fallback: Initializing search after timeout.");
+				console.log("兜底初始化：超时后启动搜索。");
 				initializeSearch();
 			}
-		}, 2000); // Adjust timeout as needed
+		}, 2000);
 	}
 });
 
@@ -143,25 +139,36 @@ $: if (initialized && keywordMobile) {
 }
 </script>
 
-<!-- search bar for desktop view -->
-<div id={barId} class:hidden={standalone} class="hidden lg:flex transition-all items-center h-11 mr-2 rounded-lg
+<div
+	id={barId}
+	class:hidden={standalone}
+	class="hidden lg:flex transition-all items-center h-11 mr-2 rounded-lg
       bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06]
-      dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10
-">
-    <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
-    <input placeholder={i18n(I18nKey.search)} bind:value={keywordDesktop} on:focus={() => search(keywordDesktop, true)}
-           class="transition-all pl-10 text-sm bg-transparent outline-0
+      dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10"
+>
+	<Icon
+		icon="material-symbols:search"
+		class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"
+	/>
+	<input
+		placeholder={i18n(I18nKey.search)}
+		bind:value={keywordDesktop}
+		on:focus={() => search(keywordDesktop, true)}
+		class="transition-all pl-10 text-sm bg-transparent outline-0
          h-full w-40 active:w-60 focus:w-60 text-black/50 dark:text-white/50"
-    >
+	/>
 </div>
 
-<!-- toggle btn for phone/tablet view -->
-<button on:click={togglePanel} aria-label="Search Panel" id="search-switch" class:hidden={standalone}
-        class="btn-plain scale-animation lg:!hidden rounded-lg w-11 h-11 active:scale-90">
-    <Icon icon="material-symbols:search" class="text-[1.25rem]"></Icon>
+<button
+	on:click={togglePanel}
+	aria-label="搜索面板"
+	id="search-switch"
+	class:hidden={standalone}
+	class="btn-plain scale-animation lg:!hidden rounded-lg w-11 h-11 active:scale-90"
+>
+	<Icon icon="material-symbols:search" class="text-[1.25rem]" />
 </button>
 
-<!-- search panel -->
 <div
 	id={panelId}
 	class:float-panel-closed={!standalone}
@@ -173,58 +180,64 @@ $: if (initialized && keywordMobile) {
 >
 	{#if standalone}
 		<div class="mb-5">
-			<div class="text-sm uppercase tracking-[0.08em] text-50">Search</div>
-			<h1 class="text-90 text-3xl md:text-4xl font-bold mt-2">Search Notes</h1>
+			<div class="text-sm uppercase tracking-[0.08em] text-50">搜索</div>
+			<h1 class="text-90 text-3xl md:text-4xl font-bold mt-2">搜索笔记</h1>
 		</div>
 	{/if}
 
-    <!-- search bar inside panel for phone/tablet -->
-    <div
+	<div
 		id={standalone ? "search-page-bar-inside" : "search-bar-inside"}
 		class={`flex relative transition-all items-center h-11 rounded-xl bg-black/[0.04] hover:bg-black/[0.06] focus-within:bg-black/[0.06] dark:bg-white/5 dark:hover:bg-white/10 dark:focus-within:bg-white/10 ${
 			standalone ? "" : "lg:hidden"
 		}`}
 	>
-        <Icon icon="material-symbols:search" class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"></Icon>
+		<Icon
+			icon="material-symbols:search"
+			class="absolute text-[1.25rem] pointer-events-none ml-3 transition my-auto text-black/30 dark:text-white/30"
+		/>
 		{#if standalone}
 			<input
 				placeholder={i18n(I18nKey.search)}
 				bind:value={keywordDesktop}
 				class="pl-10 absolute inset-0 text-sm bg-transparent outline-0 focus:w-60 text-black/50 dark:text-white/50"
-			>
+			/>
 		{:else}
 			<input
 				placeholder={i18n(I18nKey.search)}
 				bind:value={keywordMobile}
 				class="pl-10 absolute inset-0 text-sm bg-transparent outline-0 focus:w-60 text-black/50 dark:text-white/50"
-			>
+			/>
 		{/if}
-    </div>
+	</div>
 
-    <!-- search results -->
 	{#if standalone && keywordDesktop && !isSearching && result.length === 0}
-		<div class="mt-4 text-50">No matching notes.</div>
+		<div class="mt-4 text-50">没有匹配的笔记。</div>
 	{/if}
-    {#each result as item}
-        <a href={item.url}
-           class="transition first-of-type:mt-2 lg:first-of-type:mt-0 group block
-       rounded-xl text-lg px-3 py-2 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]">
-            <div class="transition text-90 inline-flex font-bold group-hover:text-[var(--primary)]">
-                {item.meta.title}<Icon icon="fa6-solid:chevron-right" class="transition text-[0.75rem] translate-x-1 my-auto text-[var(--primary)]"></Icon>
-            </div>
-            <div class="transition text-sm text-50">
-                {@html item.excerpt}
-            </div>
-        </a>
-    {/each}
+	{#each result as item}
+		<a
+			href={item.url}
+			class="transition first-of-type:mt-2 lg:first-of-type:mt-0 group block
+       rounded-xl text-lg px-3 py-2 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]"
+		>
+			<div class="transition text-90 inline-flex font-bold group-hover:text-[var(--primary)]">
+				{item.meta.title}<Icon
+					icon="fa6-solid:chevron-right"
+					class="transition text-[0.75rem] translate-x-1 my-auto text-[var(--primary)]"
+				/>
+			</div>
+			<div class="transition text-sm text-50">
+				{@html item.excerpt}
+			</div>
+		</a>
+	{/each}
 </div>
 
 <style>
-  input:focus {
-    outline: 0;
-  }
-  .search-panel {
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
-  }
+	input:focus {
+		outline: 0;
+	}
+	.search-panel {
+		max-height: calc(100vh - 100px);
+		overflow-y: auto;
+	}
 </style>

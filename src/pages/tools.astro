@@ -1,0 +1,8 @@
+---
+import AppLayout from "@layouts/AppLayout.astro";
+import DecoderTool from "@components/tools/DecoderTool.svelte";
+---
+
+<AppLayout title="工具" description="Pwn 常用辅助工具。">
+	<DecoderTool client:only="svelte" />
+</AppLayout>
